@@ -111,3 +111,5 @@ The repository is organized as follows:
 ├── variables.tf
 └── versions.tf
 ```
+
+## Reference [Getoutline](https://infraspec.getoutline.com/doc/terraform-Xkko7xHwM5) Document for Conventions to follow in your module
