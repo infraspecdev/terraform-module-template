@@ -113,3 +113,29 @@ The repository is organized as follows:
 ```
 
 ## Reference [Getoutline](https://infraspec.getoutline.com/doc/terraform-Xkko7xHwM5) Document for Conventions to follow in your module
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.4 |
+
+## Providers
+
+No providers.
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
