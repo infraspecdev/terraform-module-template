@@ -3,9 +3,6 @@ repos:
     rev: v1.89.0
     hooks:
       - id: terraform_fmt
-      - id: terraform_docs
-        args:
-          - '--args=--lockfile=false'
       - id: terraform_tflint
         args:
           - '--args=--only=terraform_deprecated_interpolation'
@@ -29,3 +26,4 @@ repos:
       - id: check-merge-conflict
       - id: end-of-file-fixer
       - id: trailing-whitespace
+exclude: README.md
