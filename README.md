@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Terraform Module Template
 
 This repository serves as a template for creating Terraform modules. It provides a structured approach to organizing and maintaining Terraform code, along with examples and best practices.
@@ -139,3 +140,4 @@ No inputs.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->
