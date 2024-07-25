@@ -1,4 +1,4 @@
-name: Pre-Commit
+name: Terraform Checks
 
 on:
   push:
@@ -11,32 +11,17 @@ on:
       - master
 
 env:
-  TERRAFORM_DOCS_VERSION: v0.16.0
   TFLINT_VERSION: v0.50.3
+  TERRAFORM_VERSION: 1.8.4
 
 jobs:
-  collectInputs:
-    name: Collect workflow inputs
-    runs-on: ubuntu-latest
-    outputs:
-      directories: ${{ steps.dirs.outputs.directories }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Get root directories
-        id: dirs
-        uses: clowdhaus/terraform-composite-actions/directories@v1.9.0
-
   preCommitMinVersions:
     name: Min TF pre-commit
-    needs: collectInputs
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        directory: ${{ fromJson(needs.collectInputs.outputs.directories) }}
+        directory: ${{ fromJson(needs.setupAndTest.outputs.directories) }}
     steps:
-      # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
       - name: Delete huge unnecessary tools folder
         run: |
           rm -rf /opt/hostedtoolcache/CodeQL
@@ -54,7 +39,6 @@ jobs:
           directory: ${{ matrix.directory }}
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
-        # Run only validate pre-commit check on min version supported
         if: ${{ matrix.directory !=  '.' }}
         uses: clowdhaus/terraform-composite-actions/pre-commit@v1.9.0
         with:
@@ -63,7 +47,6 @@ jobs:
           args: 'terraform_validate --color=always --show-diff-on-failure --files ${{ matrix.directory }}/*'
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
-        # Run only validate pre-commit check on min version supported
         if: ${{ matrix.directory ==  '.' }}
         uses: clowdhaus/terraform-composite-actions/pre-commit@v1.9.0
         with:
@@ -74,9 +57,7 @@ jobs:
   preCommitMaxVersion:
     name: Max TF pre-commit
     runs-on: ubuntu-latest
-    needs: collectInputs
     steps:
-      # https://github.com/orgs/community/discussions/25678#discussioncomment-5242449
       - name: Delete huge unnecessary tools folder
         run: |
           rm -rf /opt/hostedtoolcache/CodeQL
